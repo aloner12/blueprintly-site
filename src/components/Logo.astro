@@ -1,16 +1,85 @@
+---
+// Logo.astro
+---
+
 <style>
-  img {
-    display: block;
-    width: 75px;
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    color: inherit;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    transition: opacity 0.2s ease;
   }
 
-  @media screen and (max-width: 520px) {
-    img {
-      display: none;
-    }
+  .icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 1.2rem;
+    font-weight: 900;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .brand {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--text-color, inherit);
+  }
+
+  .tagline {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-top: 0.25rem;
+    color: var(--text-secondary, rgba(0, 0, 0, 0.65));
+  }
+
+  /* Dark mode adjustments using your site's dark class */
+  :global(.theme-dark) .icon {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    box-shadow: 0 6px 18px rgba(59, 130, 246, 0.3);
+  }
+
+  :global(.theme-dark) .tagline {
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  a:hover .icon {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+  }
+
+  :global(.theme-dark) a:hover .icon {
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.45);
+  }
+
+  a:hover .brand {
+    opacity: 0.9;
   }
 </style>
 
-<a href="/">
-  <img alt="Blog Logo" src="/assets/logo.webp" width="75" height="50" />
+<a href="/" aria-label="Blueprintly Home">
+  <div class="icon">
+    B
+  </div>
+
+  <div class="text">
+    <span class="brand">Blueprintly</span>
+    <span class="tagline">Blueprints for your workspace</span>
+  </div>
 </a>

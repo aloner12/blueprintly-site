@@ -1,98 +1,459 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-const title = 'My Astro Blog';
-const description = 'The perfect starter for your perfect blog.';
-const permalink = Astro.site.href;
+const title = "Blueprintly | The Blueprint for a Home Office That Actually Works";
+const description = "Honest gear breakdowns, ergonomic layouts, and a free Focus Planner to help you work better without back pain.";
+const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
 ---
 
-<BaseLayout title={title} description={description} permalink={permalink}>
-  <div class="home-container">
-    <div class="home-copy">
-      <h1>Welcome to your new Astro Blog</h1>
-      <p>Check out the docs on <a href="https://www.github.com/Charca/astro-blog-template" target="_blank" rel="noopener">GitHub</a> to get started.</p>
-    </div>
+<html lang="en">
+  <head>
+    <BaseHead {title} {description} {permalink} />
+  </head>
 
-    <div class="hero-image-container">
-      <picture>
-        <source srcset="/assets/home-illustration.webp" media="(min-width: 600px)">
-        <img class="hero-image" alt="Illustration of person reading a book" src="/assets/home-illustration-small.webp" width="550" height="466">
-      </picture>
-      <p class="caption">
-        Illustration by
-        <a href="https://icons8.com/illustrations/author/5c07e68d82bcbc0092519bb6" target="_blank" rel="noopener">Icons 8</a>
-        from
-        <a href="https://icons8.com/illustrations" target="_blank" rel="noopener">Ouch!</a>
-      </p>
-    </div>
-  </div>
-</BaseLayout>
+  <body>
+    <Header current="" />
+
+    <main class="container">
+      <!-- ========================================= -->
+      <!-- 1. HERO with EMAIL CAPTURE (Primary)       -->
+      <!-- ========================================= -->
+      <section class="hero">
+        <span class="badge">✦ 2026 Blueprint Series</span>
+        <h1>
+          The <span class="accent">Blueprint</span> for a Home Office<br />
+          That Doesn't Hurt Your Back — <span class="accent">or Your Wallet</span>.
+        </h1>
+        <p class="subheadline">
+          No fluff. No fake reviews. Just honest gear breakdowns and layout plans that help you work better, longer, and without the back pain.
+        </p>
+        
+        <!-- Primary Conversion Zone: Email Capture -->
+        <div class="email-capture">
+          <form class="capture-form" onsubmit="event.preventDefault(); alert('✅ Thanks! Check your inbox for the Focus Planner.');">
+            <input type="email" placeholder="Enter your email..." required />
+            <button type="submit" class="btn btn-primary">
+              Get the Free Focus Planner →
+            </button>
+          </form>
+          <div class="capture-trust">
+            <span>✓ Free PDF</span>
+            <span>✓ No spam</span>
+            <span>✓ Unsubscribe anytime</span>
+          </div>
+        </div>
+
+        <!-- Secondary Action (Very subtle) -->
+        <div class="secondary-actions">
+          <a href="#coming-soon" class="browse-link">Or browse our gear guides →</a>
+        </div>
+      </section>
+
+      <!-- ========================================= -->
+      <!-- 2. MISSION (Bullet-point driven, targeted) -->
+      <!-- ========================================= -->
+      <section class="mission">
+        <div class="section-header">
+          <h2>Blueprintly isn't for everyone. <span style="color: var(--accent-blue);">It's for:</span></h2>
+          <p>Students, remote workers, and creators who want a workspace that actually supports their work — without the marketing fluff.</p>
+        </div>
+
+        <div class="audience-grid">
+          <div class="card">
+            <div class="card-icon">🎓</div>
+            <h3>Students on a Budget</h3>
+            <p>Building your first real workspace with limited space and a tight budget. We find the high-value ergonomic essentials that actually move the needle.</p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">💻</div>
+            <h3>Remote Professionals</h3>
+            <p>Working 8+ hours a day in the same chair. We help you upgrade your setup to eliminate posture strain and boost daily endurance.</p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🛠️</div>
+            <h3>Creators & Freelancers</h3>
+            <p>Your workspace is your brand. We curate clean, technical layouts that look professional on camera and keep you in a state of deep focus.</p>
+          </div>
+        </div>
+
+        <!-- Transparency disclosure inline -->
+        <div class="disclosure-banner">
+          <p>
+            <span>🔍</span> Every recommendation is independently researched and vetted. 
+            We earn a small commission if you purchase through our links — at <strong>zero extra cost</strong> to you. 
+            It keeps the blueprints free and our advice 100% honest.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========================================= -->
+      <!-- 3. BLOG COMING SOON (Funnels to email)     -->
+      <!-- ========================================= -->
+      <section id="coming-soon" class="coming-soon-section">
+        <div class="section-header">
+          <h2>In-Depth Blueprints Loading…</h2>
+          <p>We're currently researching and testing gear for our first 5 setup guides. Want early access?</p>
+        </div>
+
+        <div class="placeholder-box">
+          <div class="status-indicator">
+            <span class="pulse"></span>
+            <span>3 to 5 In-Depth Guides Launching Soon</span>
+          </div>
+          <p style="margin-bottom: 1.2rem;">
+            We don't rush our research. Each blueprint requires testing, cross-referencing, and real-world validation.
+          </p>
+          <a href="#" onclick="document.querySelector('.capture-form input')?.focus(); return false;" style="color: var(--accent-blue); font-weight: 600; text-decoration: underline;">
+            Join the list above 👆 to get the first blueprint the moment it drops.
+          </a>
+        </div>
+      </section>
+
+      <!-- ========================================= -->
+      <!-- 4. TRANSPARENCY / PROCESS (Short & Sweet) -->
+      <!-- ========================================= -->
+      <section class="process-section">
+        <div class="process-card">
+          <h2>Our Standards</h2>
+          <p>
+            We research 20+ products per guide, filter by material quality and real owner feedback, 
+            then map them into a cohesive layout. What you get is a <strong>tested blueprint</strong>, not a generic list.
+          </p>
+          <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-secondary, #94a3b8);">
+            Built with 🧠 by the Blueprintly team
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
+</html>
 
 <style>
-  .home-container {
-    align-items: center;
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    margin: 2em 0;
-    min-height: 400px;
+  :root {
+    --accent-blue: #2563eb;
+    --accent-hover: #1d4ed8;
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --border-color: #334155;
+    --text-secondary: #94a3b8;
   }
 
-  .home-copy {
-    flex: 1;
-    padding: 0 1em;
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
   }
 
-  .home-copy h1 {
-    font-weight: 700;
-    margin-bottom: 0.5em;
-    line-height: 1.3;
-  }
-
-  .home-copy p {
-    font-size: 1.4em;
-  }
-
-  .hero-image-container {
-    margin: 0 1em;
+  /* ===== HERO ===== */
+  .hero {
     text-align: center;
+    padding: 3rem 1rem 4rem 1rem;
+    max-width: 820px;
+    margin: 0 auto;
   }
 
-  .hero-image-container picture {
-    display: block;
-    min-height: 250px;
+  .badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    background: rgba(37, 99, 235, 0.1);
+    border: 1px solid rgba(37, 99, 235, 0.25);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
   }
 
-  .caption {
-    font-size: .8em;
-    font-style: italic;
+  h1 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  @media (max-width: 600px) {
+    h1 { font-size: 2rem; }
+  }
+
+  .accent {
+    color: var(--accent-blue);
+  }
+
+  .subheadline {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ===== EMAIL CAPTURE (THE PRIMARY CTA) ===== */
+  .email-capture {
+    max-width: 540px;
+    margin: 0 auto 1.2rem;
+  }
+
+  .capture-form {
+    display: flex;
+    gap: 0.75rem;
+    background: var(--card-bg);
+    padding: 0.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    transition: border-color 0.2s;
+  }
+  .capture-form:focus-within {
+    border-color: var(--accent-blue);
+  }
+
+  .capture-form input {
+    flex: 1;
+    padding: 0.8rem 1.2rem;
+    background: transparent;
+    border: none;
+    font-size: 0.95rem;
+    color: inherit;
+    outline: none;
+    min-width: 0;
+  }
+  .capture-form input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--accent-blue);
+    color: #ffffff;
+  }
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+  }
+
+  .capture-trust {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 0.8rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+  .capture-trust span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* Secondary action (Browse guides) */
+  .secondary-actions {
+    margin-top: 1.2rem;
+  }
+  .browse-link {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: underline dotted;
+    text-underline-offset: 4px;
+    transition: color 0.2s;
+  }
+  .browse-link:hover {
+    color: var(--accent-blue);
+  }
+
+  /* ===== MISSION ===== */
+  .mission {
+    padding: 4rem 0 2rem 0;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 3rem auto;
+  }
+
+  .section-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+  }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: border-color 0.2s ease, transform 0.2s ease;
     text-align: left;
   }
-
-  .hero-image {
-    width: 100%;
-    max-width: 550px;
-    margin-bottom: 1em;
+  .card:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-4px);
   }
 
-  @media (max-width: 1200px) {
-    p {
-      font-size: 1.2em;
-    }
-
-    .hero-image {
-      max-width: 400px;
-    }
+  .card-icon {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+  .card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  .card p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
   }
 
-  @media (max-width: 800px) {
-    .home-container {
+  .disclosure-banner {
+    margin-top: 2.5rem;
+    background: rgba(37, 99, 235, 0.05);
+    border: 1px solid rgba(37, 99, 235, 0.15);
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+  .disclosure-banner strong {
+    color: #fff;
+  }
+
+  /* ===== COMING SOON ===== */
+  .coming-soon-section {
+    padding: 4rem 0;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .placeholder-box {
+    background: var(--card-bg);
+    border: 1px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: var(--accent-blue);
+  }
+
+  .pulse {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7);
+    animation: pulse 1.8s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+  }
+
+  .placeholder-box p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ===== PROCESS ===== */
+  .process-section {
+    padding: 2rem 0 4rem 0;
+  }
+
+  .process-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 2.5rem;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .process-card h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .process-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .capture-form {
       flex-direction: column;
+      background: transparent;
+      padding: 0;
+      border: none;
     }
-
-    .home-copy {
-      flex: 0;
-      padding-bottom: 2em;
+    .capture-form input {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.9rem 1rem;
+    }
+    .capture-form .btn {
+      width: 100%;
+      justify-content: center;
+    }
+    .capture-trust {
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    .audience-grid {
+      grid-template-columns: 1fr;
+    }
+    .card {
       text-align: center;
     }
   }

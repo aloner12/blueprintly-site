@@ -1,53 +1,347 @@
 ---
-import { getCollection } from 'astro:content'
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-const title = 'Blog';
-const description = 'Latest articles.';
-const permalink = `${Astro.site.href}blog`;
-
-let allPosts = await getCollection('posts')
-allPosts = allPosts.sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf());
+const title = "Blueprintly | Workspace Blueprints & Ergonomic Gear Guides";
+const description = "Honest gear breakdowns, ergonomic layouts, and budget-friendly setup blueprints to help you work better without back pain.";
+const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
 ---
 
-<BaseLayout title={title} description={description} permalink={permalink} current="blog">
-  <div class="container">
-    <h1>Blog</h1>
-    {allPosts.map((post, index) => {
-      const href = `/blog/${post.data.slug}`;
-      return (
-        <div>
-          { index !== 0 && <hr /> }
-          <div class="post-item">
-            <h2>
-              <a href={href}>{post.data.title}</a>
-            </h2>
-            <p>{post.data.description}</p>
-            <div class="post-item-footer">
-              <span class="post-item-date">— {post.data.publishDate}</span>
-            </div>
+<html lang="en">
+  <head>
+    <BaseHead {title} {description} {permalink} />
+  </head>
+
+  <body>
+    <Header current="" />
+
+    <main class="container">
+      <!-- 1. HERO SECTION -->
+      <section class="hero">
+        <span class="badge">Industrial Minimalist Workspaces</span>
+        <h1>Build a Setup That Doesn't Hurt Your Back — <span class="accent">or Your Wallet</span>.</h1>
+        <p class="subheadline">
+          No fluff. No fake reviews. Just honest gear breakdowns, layout blueprints, and ergonomic advice to help you work better and longer.
+        </p>
+        
+        <div class="cta-group">
+          <a href="#coming-soon" class="btn btn-primary">Browse Guides</a>
+          <a href="#newsletter" class="btn btn-secondary">Get Free Setup Checklist (PDF)</a>
+        </div>
+      </section>
+
+      <!-- 2. MISSION & TARGET AUDIENCE -->
+      <section class="mission">
+        <div class="section-header">
+          <h2>Designed for High Performance</h2>
+          <p>We help you build a workspace that actually works for your specific routine and budget.</p>
+        </div>
+
+        <div class="audience-grid">
+          <div class="card">
+            <div class="card-icon">🎓</div>
+            <h3>Students on a Budget</h3>
+            <p>Maximize limited desk space and focus on high-value ergonomic essentials without overspending.</p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">💻</div>
+            <h3>Remote Professionals</h3>
+            <p>Upgrade your daily driver setup to eliminate posture strain and boost 8-hour workday endurance.</p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🛠️</div>
+            <h3>Creators & Freelancers</h3>
+            <p>Clean, technical, and distraction-free layouts built for deep work and a professional aesthetic.</p>
           </div>
         </div>
-      )
-    })}
-  </div>
-</BaseLayout>
+      </section>
+
+      <!-- 3. RECENT BLUEPRINTS (COMING SOON) -->
+      <section id="coming-soon" class="coming-soon-section">
+        <div class="section-header">
+          <h2>Latest Blueprints & Guides</h2>
+          <p>Deep-dive gear breakdowns and step-by-step layout guides are currently in development.</p>
+        </div>
+
+        <div class="placeholder-box">
+          <div class="status-indicator">
+            <span class="pulse"></span>
+            <span>3 to 5 In-Depth Guides Launching Soon</span>
+          </div>
+          <p>We research and vet every recommendation before publishing. Check back shortly or join the list below to get notified when our first workspace guides drop.</p>
+        </div>
+      </section>
+
+      <!-- 4. RESEARCH PROCESS (COMING SOON) -->
+      <section id="newsletter" class="process-section">
+        <div class="process-card">
+          <h2>Our Standards & Transparency</h2>
+          <p>
+            Every product recommendation on Blueprintly is independently researched. We earn a small affiliate commission if you purchase through our links at no extra cost to you — keeping our advice 100% honest and objective.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
+</html>
 
 <style>
-  h2,
-  .post-item-footer {
-    font-family: var(--font-family-sans);
+  :root {
+    --accent-blue: #2563eb;
+    --accent-hover: #1d4ed8;
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --card-border: rgba(255, 255, 255, 0.08);
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 4rem 1rem 5rem 1rem;
+    max-width: 850px;
+    margin: 0 auto;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.75rem;
     font-weight: 700;
-  }
-
-  .post-item-date {
-    color: var(--text-secondary);
-    text-align: left;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-right: 16px;
+    color: var(--accent-blue);
+    background: rgba(37, 99, 235, 0.1);
+    border: 1px solid rgba(37, 99, 235, 0.25);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
   }
 
-  hr {
-    margin: 60px auto;
+  h1 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  .accent {
+    color: var(--accent-blue);
+  }
+
+  .subheadline {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--text-secondary, #94a3b8);
+    margin-bottom: 2.5rem;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.85rem 1.75rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background: var(--accent-blue);
+    color: #ffffff;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: inherit;
+    border: 1px solid var(--border-color, #334155);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+    transform: translateY(-2px);
+  }
+
+  /* MISSION */
+  .mission {
+    padding: 4rem 0;
+    border-top: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+  }
+
+  .section-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-header p {
+    color: var(--text-secondary, #94a3b8);
+    font-size: 1rem;
+  }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .card:hover {
+    border-color: var(--accent-blue);
+  }
+
+  .card-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text-secondary, #94a3b8);
+  }
+
+  /* COMING SOON SECTION */
+  .coming-soon-section {
+    padding: 4rem 0;
+    border-top: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+  }
+
+  .placeholder-box {
+    background: var(--card-bg);
+    border: 1px dashed var(--border-color, #334155);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: var(--accent-blue);
+  }
+
+  .pulse {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7);
+    animation: pulse 1.8s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7);
+    }
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+    }
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+    }
+  }
+
+  .placeholder-box p {
+    font-size: 0.95rem;
+    color: var(--text-secondary, #94a3b8);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* PROCESS SECTION */
+  .process-section {
+    padding: 3rem 0 5rem 0;
+  }
+
+  .process-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 2.5rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .process-card h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .process-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary, #94a3b8);
+    margin: 0;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+
+    .subheadline {
+      font-size: 1rem;
+    }
+
+    .cta-group {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+      text-align: center;
+    }
   }
 </style>

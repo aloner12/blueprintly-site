@@ -354,19 +354,21 @@ const processedPosts = recentPosts.map((post) => {
   }
 
   .post-image-container {
-    width: 90px;
-    height: 70px;
-    flex-shrink: 0;
-    border-radius: 6px;
-    overflow: hidden;
-    background: rgba(0, 0, 0, 0.1);
-  }
+  width: 120px;       /* Fixed width */
+  height: 90px;       /* Fixed height */
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #111;   /* Matches card interior so padding blends in */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .post-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+.post-image {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain; /* Prevents stretching and keeps graphic proportions uniform */
+}
 
   .post-content {
     flex: 1;

@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -6,6 +7,40 @@ import Footer from '../../components/Footer.astro';
 const title = 'Blog | Blueprintly';
 const description = 'Workspace blueprints, ergonomic gear guides, and setup reviews.';
 const permalink = `${Astro.site ? Astro.site.href : 'https://blueprintly.online'}blog`;
+
+// 1. Fetch posts and sort by publication date (newest first)
+const allPosts = await getCollection('posts');
+const sortedPosts = allPosts.sort(
+  (a, b) => new Date(b.data.publishDate || 0).getTime() - new Date(a.data.publishDate || 0).getTime()
+);
+
+// 2. Format posts with previews and images
+const processedPosts = sortedPosts.map((post) => {
+  const slug = (post.data as any).slug || post.id;
+
+  const rawText = post.data.description || post.body || '';
+  const cleanText = rawText.replace(/[#*`_~]/g, '').trim();
+  const truncatedText = cleanText.length > 60 
+    ? cleanText.slice(0, 60) + '... Read more' 
+    : cleanText + ' Read more';
+
+  const data = post.data as any;
+  let firstImage = data.heroImage || data.image || null;
+
+  if (!firstImage && post.body) {
+    const imgMatch = post.body.match(/!\[.*?\]\((.*?)\)/);
+    if (imgMatch && imgMatch[1]) {
+      firstImage = imgMatch[1];
+    }
+  }
+
+  return {
+    ...post,
+    slug,
+    previewText: truncatedText,
+    image: firstImage,
+  };
+});
 ---
 
 <html lang="en">
@@ -16,11 +51,155 @@ const permalink = `${Astro.site ? Astro.site.href : 'https://blueprintly.online'
   <body>
     <Header current="blog" />
 
-    <main style="max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; text-align: center;">
-      <h1>Blueprintly Blog</h1>
-      <p style="color: #94a3b8; margin-top: 1rem;">Guides and gear breakdowns coming soon!</p>
+    <main class="blog-container">
+      <header class="page-header">
+        <h1>Blueprintly Articles</h1>
+        <p class="subheadline">In-depth ergonomic blueprints, setup guides, and gear breakdowns.</p>
+      </header>
+
+      <section class="latest-posts">
+        <div class="post-list">
+          {processedPosts.length > 0 ? (
+            processedPosts.map((post) => (
+              <article class="post-item">
+                <a href={`/blog/${post.slug}/`} class="post-link">
+                  {post.image && (
+                    <div class="post-image-container">
+                      <img src={post.image} alt={post.data.title} class="post-image" />
+                    </div>
+                  )}
+                  <div class="post-content">
+                    <h3>{post.data.title}</h3>
+                    <p>{post.previewText}</p>
+                  </div>
+                </a>
+              </article>
+            ))
+          ) : (
+            <p class="no-posts">No published guides found yet.</p>
+          )}
+        </div>
+      </section>
     </main>
 
     <Footer />
   </body>
 </html>
+
+<style>
+  /* ===== THEME VARIABLES ===== */
+  :root {
+    --accent-blue: #2563eb;
+    --card-bg: rgba(0, 0, 0, 0.04);
+    --card-border: rgba(0, 0, 0, 0.10);
+    --border-color: #e2e8f0;
+    --text-secondary: #475569;
+  }
+
+  :root.theme-dark {
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --border-color: #334155;
+    --text-secondary: #94a3b8;
+  }
+
+  .blog-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem 1.5rem;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+
+  .subheadline {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+  }
+
+  /* ===== LATEST POSTS LIST (MATCHING HOMEPAGE) ===== */
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .post-item {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+    transition: border-color 0.2s;
+  }
+  
+  .post-item:hover {
+    border-color: var(--accent-blue);
+  }
+
+  .post-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .post-image-container {
+    width: 90px;
+    height: 70px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  .post-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .post-content {
+    flex: 1;
+  }
+
+  .post-item h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  
+  .post-item p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .no-posts {
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 2rem;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .post-link {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+    
+    .post-image-container {
+      width: 100%;
+      height: 140px;
+    }
+  }
+</style>

@@ -1,16 +1,56 @@
+
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const title = "Blueprintly | The Blueprint for a Home Office That Actually Works";
 const description = "Honest gear breakdowns, ergonomic layouts, and a free Focus Planner to help you work better without back pain.";
 const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
+
+// 1. Fetch posts and sort by date (newest first)
+const allPosts = await getCollection('posts');
+const recentPosts = allPosts
+  .sort((a, b) => new Date(b.data.publishDate || 0).getTime() - new Date(a.data.publishDate || 0).getTime())
+  .slice(0, 3);
+
+// 2. Helper function to extract content preview and image safely
+const processedPosts = recentPosts.map((post) => {
+  // Extract slug safely
+  const slug = (post.data as any).slug || post.id;
+
+  // Extract raw body or description text for preview
+  const rawText = post.data.description || post.body || '';
+  const cleanText = rawText.replace(/[#*`_~]/g, '').trim();
+  const truncatedText = cleanText.length > 60 
+    ? cleanText.slice(0, 60) + '... Read more' 
+    : cleanText + ' Read more';
+
+  // Safely check for images using type assertion (any)
+  const data = post.data as any;
+  let firstImage = data.heroImage || data.image || null;
+
+  // Fallback: search for markdown image tag ![alt](url) in the body
+  if (!firstImage && post.body) {
+    const imgMatch = post.body.match(/!\[.*?\]\((.*?)\)/);
+    if (imgMatch && imgMatch[1]) {
+      firstImage = imgMatch[1];
+    }
+  }
+
+  return {
+    ...post,
+    slug,
+    previewText: truncatedText,
+    image: firstImage,
+  };
+});
 ---
 
 <BaseLayout title={title} description={description} permalink={permalink}>
   <div class="home-container">
 
     <!-- ========================================= -->
-    <!-- 1. HERO with EMAIL CAPTURE                -->
+    <!-- 1. HERO (without email capture)           -->
     <!-- ========================================= -->
     <section class="hero">
       <span class="badge">✦ 2026 Blueprint Series</span>
@@ -20,34 +60,17 @@ const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
       </h1>
       <p class="subheadline">
         Science‑backed ergonomics for small spaces, student budgets, and rental‑friendly setups.  
-        Fix your desk pain today — and get our free Focus Planner to start.
+        Fix your desk pain today with our in‑depth guides.
       </p>
 
-      <!-- Primary Conversion Zone: Email Capture -->
-      <div class="email-capture">
-        <!-- Replace your existing form with this -->
-        <form action="https://hook.eu2.make.com/2omb9vtbv6jnq4pwgiq9bmky8pz6ffi3" method="POST">
-          <input type="email" name="email" placeholder="Enter your email..." required />
-          <button type="submit" class="btn btn-primary">
-            Get the Free Focus Planner →
-          </button>
-        </form>
-
-        <div class="capture-trust">
-          <span>✓ Free PDF</span>
-          <span>✓ No spam</span>
-          <span>✓ Unsubscribe anytime</span>
-        </div>
-      </div>
-
-      <!-- Secondary Action (browse guides) -->
-      <div class="secondary-actions">
-        <a href="#latest-posts" class="browse-link">Or browse our latest guides ↓</a>
+      <!-- No form – just a clear call‑to‑action to browse -->
+      <div class="hero-cta">
+        <a href="#latest-posts" class="btn btn-primary">Browse the Guides ↓</a>
       </div>
     </section>
 
     <!-- ========================================= -->
-    <!-- 2. SUB-NICHES (from first code)           -->
+    <!-- 2. SUB-NICHES (unchanged)                  -->
     <!-- ========================================= -->
     <section class="sub-niches">
       <h2>What's your workspace challenge?</h2>
@@ -74,29 +97,30 @@ const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
     </section>
 
     <!-- ========================================= -->
-    <!-- 3. LATEST POSTS (from first code)         -->
+    <!-- 3. LATEST POSTS                           -->
     <!-- ========================================= -->
     <section id="latest-posts" class="latest-posts">
       <h2>Latest Guides</h2>
       <div class="post-list">
-        <article class="post-item">
-          <a href="/blog/small-desk-setup-guide/">
-            <h3>The Ultimate Small Desk Setup Guide</h3>
-            <p>Wall mounting, vertical monitors, and storage hacks for tiny workspaces.</p>
-          </a>
-        </article>
-        <article class="post-item">
-          <a href="/blog/best-monitor-arms-tiny-desks/">
-            <h3>5 Best Wall‑Mounted Monitor Arms for Tiny Desks</h3>
-            <p>Budget‑friendly arms that save space and fix your neck pain.</p>
-          </a>
-        </article>
-        <article class="post-item">
-          <a href="/blog/student-workspace-guide-under-150/">
-            <h3>The Complete Student Workspace Guide (Under $150)</h3>
-            <p>Ergonomic setups for students who need comfort without breaking the bank.</p>
-          </a>
-        </article>
+        {processedPosts.length > 0 ? (
+          processedPosts.map((post) => (
+            <article class="post-item">
+              <a href={`/blog/${post.slug}/`} class="post-link">
+                {post.image && (
+                  <div class="post-image-container">
+                    <img src={post.image} alt={post.data.title} class="post-image" />
+                  </div>
+                )}
+                <div class="post-content">
+                  <h3>{post.data.title}</h3>
+                  <p>{post.previewText}</p>
+                </div>
+              </a>
+            </article>
+          ))
+        ) : (
+          <p class="no-posts">No published guides found yet.</p>
+        )}
       </div>
       <div class="view-all">
         <a href="/blog/" class="btn btn-secondary">View All Posts →</a>
@@ -104,7 +128,7 @@ const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
     </section>
 
     <!-- ========================================= -->
-    <!-- 4. DISCLOSURE (combined style)            -->
+    <!-- 4. DISCLOSURE (theme‑aware)               -->
     <!-- ========================================= -->
     <div class="disclosure-banner">
       <p>
@@ -118,7 +142,7 @@ const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
 </BaseLayout>
 
 <style>
-  /* ===== THEME VARIABLES ===== */
+  /* ===== THEME VARIABLES (Light + Dark) ===== */
   :root {
     --accent-blue: #2563eb;
     --accent-hover: #1d4ed8;
@@ -194,38 +218,8 @@ const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
     margin-right: auto;
   }
 
-  /* ===== EMAIL CAPTURE ===== */
-  .email-capture {
-    max-width: 540px;
-    margin: 0 auto 1.2rem;
-  }
-
-  .capture-form {
-    display: flex;
-    gap: 0.75rem;
-    background: var(--card-bg);
-    padding: 0.5rem;
-    border-radius: 12px;
-    border: 1px solid var(--card-border);
-    transition: border-color 0.2s;
-  }
-  .capture-form:focus-within {
-    border-color: var(--accent-blue);
-  }
-
-  .capture-form input {
-    flex: 1;
-    padding: 0.8rem 1.2rem;
-    background: transparent;
-    border: none;
-    font-size: 0.95rem;
-    color: inherit;
-    outline: none;
-    min-width: 0;
-  }
-  .capture-form input::placeholder {
-    color: var(--text-secondary);
-    opacity: 0.6;
+  .hero-cta {
+    margin-top: 1rem;
   }
 
   .btn {
@@ -260,34 +254,6 @@ const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
     background: var(--card-bg);
     border-color: var(--accent-blue);
     color: #ffffff;
-  }
-
-  .capture-trust {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 0.8rem;
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-  }
-  .capture-trust span {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-  }
-
-  .secondary-actions {
-    margin-top: 1.2rem;
-  }
-  .browse-link {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-decoration: underline dotted;
-    text-underline-offset: 4px;
-    transition: color 0.2s;
-  }
-  .browse-link:hover {
-    color: var(--accent-blue);
   }
 
   /* ===== SUB-NICHES ===== */
@@ -379,10 +345,31 @@ const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
     border-color: var(--accent-blue);
   }
 
-  .post-item a {
+  .post-link {
     text-decoration: none;
     color: inherit;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .post-image-container {
+    width: 90px;
+    height: 70px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  .post-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .post-content {
+    flex: 1;
   }
 
   .post-item h3 {
@@ -394,6 +381,11 @@ const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
     font-size: 0.95rem;
     color: var(--text-secondary);
     margin: 0;
+  }
+
+  .no-posts {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
   }
 
   .view-all {
@@ -417,31 +409,20 @@ const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 640px) {
-    .capture-form {
-      flex-direction: column;
-      background: transparent;
-      padding: 0;
-      border: none;
-    }
-    .capture-form input {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 0.9rem 1rem;
-    }
-    .capture-form .btn {
-      width: 100%;
-      justify-content: center;
-    }
-    .capture-trust {
-      flex-wrap: wrap;
-      gap: 0.8rem;
-    }
     .audience-grid {
       grid-template-columns: 1fr;
     }
     .card {
       text-align: center;
+    }
+    .post-link {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+    .post-image-container {
+      width: 100%;
+      height: 140px;
     }
   }
 </style>

@@ -7,11 +7,11 @@ import rehypeExternalLinks from 'rehype-external-links'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://astro-blog-template.netlify.app',
+  site: 'https://blueprintly.online', // Replace with your actual live domain
   integrations: [mdx(), svelte()],
   markdown: {
     shikiConfig: {
-      theme: 'nord',
+      theme: 'nord', // Dark minimalist theme matching your UI
     },
     remarkPlugins: [remarkGfm, remarkSmartypants],
     rehypePlugins: [
@@ -19,6 +19,7 @@ export default defineConfig({
         rehypeExternalLinks,
         {
           target: '_blank',
+          rel: ['noopener', 'noreferrer'], // Good practice for external links
         },
       ],
     ],

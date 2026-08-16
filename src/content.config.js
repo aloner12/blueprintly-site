@@ -5,16 +5,16 @@ const blogCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    heroImage: z.string(),
-    // Enforces strict selection from your 3 categories
+    heroImage: z.string().optional(), // Made optional
     category: z.enum([
       'No-damage',
       'Small-Space',
       'Student-budget'
     ]),
+    publishDate: z.union([z.string(), z.date()]).optional(), // Made optional
   }),
 });
 
 export const collections = {
-  'blog-posts': blogCollection, // or 'posts', matching your collection folder name
+  'blog-posts': blogCollection,
 };

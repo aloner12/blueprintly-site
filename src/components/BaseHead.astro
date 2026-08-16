@@ -6,11 +6,18 @@ import '../styles/global.css'
 export interface Props {
   title: string
   description: string
-  permalink: string
+  permalink?: string
+  heroImage?: string
 }
 
-const { title, description, permalink } = Astro.props
-const socialUrl = Astro.site.href + 'assets/social.png'
+const { title, description, permalink, heroImage } = Astro.props
+
+// Use the post's hero image if provided, otherwise fall back to the default social card
+const relativeImagePath = heroImage || '/assets/social.png'
+const socialUrl = new URL(relativeImagePath, Astro.site).href
+
+// Dynamic canonical URL fallback
+const canonicalUrl = permalink || new URL(Astro.url.pathname, Astro.site).href
 ---
 
 <!-- Global Metadata -->
@@ -25,21 +32,21 @@ const socialUrl = Astro.site.href + 'assets/social.png'
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content={permalink} />
+<meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={socialUrl} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={permalink} />
+<meta property="twitter:url" content={canonicalUrl} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={socialUrl} />
 
 <ClientRouter />
 
-<!-- This is intentionally inlined to avoid FOUC -->
+<!-- Inline script to prevent FOUC -->
 <script is:inline>
   const root = document.documentElement
   const theme = localStorage.getItem('theme')

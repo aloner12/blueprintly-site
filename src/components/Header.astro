@@ -6,48 +6,184 @@ const { current = '' } = Astro.props;
 ---
 
 <style>
+  /* ===== GLOBAL LAYOUT RESET ===== */
+  :global(.container),
+  :global(header),
+  :global(main) {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  :global(html),
+  :global(body) {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* ===== HEADER STYLES ===== */
   header {
     position: sticky;
     top: 0;
     z-index: 1000;
     display: flex;
-    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between; /* Spread logo and nav */
     max-width: 1400px;
     width: 100%;
-    padding: 2em;
+    padding: 1.5rem 2rem;
     transition: background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
     background-color: transparent;
     border-bottom: 1px solid transparent;
   }
 
-  /* Default (light theme) – scrolled state */
   header.scrolled {
-    background-color: rgba(255, 255, 255, 0.85); /* Light glass */
+    background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 
-  /* Dark theme override */
   :global(.theme-dark) header.scrolled {
-    background-color: rgba(13, 13, 13, 0.85); /* Dark glass */
+    background-color: rgba(13, 13, 13, 0.85);
     border-bottom: 1px solid #2a2a2a;
   }
 
-  @media screen and (max-width: 520px) {
+  /* ===== HAMBURGER BUTTON (hidden on desktop) ===== */
+  .hamburger {
+    display: none;          /* Hidden by default on larger screens */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: inherit;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1001;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: currentColor;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+  }
+
+  /* Animated hamburger → X when open */
+  .hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  /* ===== NAVIGATION ===== */
+  .nav-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Hide nav on mobile by default, show when open */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ===== MOBILE RESPONSIVE ===== */
+  @media (max-width: 768px) {
     header {
-      padding: 2em 0;
+      padding: 1rem 1.5rem;
+    }
+
+    .hamburger {
+      display: flex;           /* Show hamburger on small screens */
+    }
+
+    .nav-links {
+      display: none;           /* Hide nav initially */
+      flex-direction: column;
+      position: absolute;
+      top: 100%;              /* Just below the header */
+      left: 0;
+      right: 0;
+      background: var(--header-bg, rgba(255,255,255,0.95));
+      backdrop-filter: blur(8px);
+      padding: 1.5rem;
+      gap: 1.5rem;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    /* When nav is open, show it */
+    .nav-links.open {
+      display: flex;
+    }
+
+    /* Dark mode adjustment */
+    :global(.theme-dark) .nav-links {
+      background: var(--header-bg-dark, rgba(30, 41, 59, 0.95));
+    }
+  }
+
+  @media (max-width: 520px) {
+    header {
+      padding: 0.75rem 1rem;
     }
   }
 </style>
 
 <header id="main-header">
+  <!-- Logo -->
   <Logo />
-  <Nav current={current} />
+
+  <!-- Hamburger Button -->
+  <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!-- Navigation -->
+  <div class="nav-wrapper">
+    <Nav current={current} />
+  </div>
 </header>
 
 <script>
+  // Toggle hamburger menu
+  const hamburger = document.getElementById('hamburger-btn');
+  const navLinks = document.querySelector('.nav-links');
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+
+    // Close menu when a link is clicked (optional)
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        navLinks.classList.remove('open');
+      });
+    });
+  }
+
+  // Scroll effect for header background
   const header = document.getElementById('main-header');
-  
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
       header?.classList.add('scrolled');

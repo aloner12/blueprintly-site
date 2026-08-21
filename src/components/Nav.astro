@@ -52,6 +52,31 @@ const { current = '' } = Astro.props;
 
   .theme-toggle-container {
     width: 75px;
+    margin-left: 20px; /* Added to match link spacing */
+  }
+
+  /* ===== RESPONSIVE STYLES ===== */
+  @media screen and (max-width: 768px) {
+    nav {
+      flex-direction: column;
+      gap: 1.5rem;
+      justify-content: center;
+      padding: 1rem 0;
+      width: 100%;
+    }
+
+    a {
+      margin-left: 0;
+      min-width: auto;
+      padding: 8px 12px;
+      font-size: 0.9rem;
+    }
+
+    .theme-toggle-container {
+      width: auto;
+      margin-left: 0;
+      margin-top: 0.5rem;
+    }
   }
 
   @media screen and (max-width: 520px) {
@@ -59,10 +84,9 @@ const { current = '' } = Astro.props;
       margin-right: 1em;
     }
   }
-
 </style>
 
-<nav>
+<nav class="nav-links">
   <a class={current === "" ? "selected" : ""} href='/'>home</a>
   <a class={current === "about" ? "selected" : ""} href='/about'>about</a>
   <a class={current === "blog" ? "selected" : ""} href='/blog'>blog</a>

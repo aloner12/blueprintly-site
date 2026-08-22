@@ -8,7 +8,7 @@ const description = "Honest gear breakdowns, ergonomic layouts, and a free Focus
 const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
 
 // 1. Fetch posts and sort by date (newest first)
-const allPosts = await getCollection('posts');
+const allPosts = await getCollection('blog-posts');
 const recentPosts = allPosts
   .sort((a, b) => new Date(b.data.publishDate || 0).getTime() - new Date(a.data.publishDate || 0).getTime())
   .slice(0, 3);

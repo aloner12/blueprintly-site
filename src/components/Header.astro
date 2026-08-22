@@ -6,7 +6,7 @@ const { current = '' } = Astro.props;
 ---
 
 <style>
-  /* ===== GLOBAL LAYOUT RESET ===== */
+  /* ===== GLOBAL LAYOUT RESET (keep as is) ===== */
   :global(.container),
   :global(header),
   :global(main) {
@@ -25,15 +25,18 @@ const { current = '' } = Astro.props;
     width: 100%;
   }
 
-  /* ===== HEADER STYLES ===== */
+  /* ===== HEADER – FIXED AT TOP ===== */
   header {
-    position: sticky;
+    position: fixed;           /* Changed from sticky */
     top: 0;
+    left: 0;                   /* Span full width */
+    right: 0;
     z-index: 1000;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Spread logo and nav */
+    justify-content: space-between;
     max-width: 1400px;
+    margin: 0 auto;            /* Centering with left/right 0 */
     width: 100%;
     padding: 1.5rem 2rem;
     transition: background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
@@ -41,20 +44,22 @@ const { current = '' } = Astro.props;
     border-bottom: 1px solid transparent;
   }
 
+  /* Scrolled state (light) */
   header.scrolled {
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 
+  /* Scrolled state (dark) */
   :global(.theme-dark) header.scrolled {
     background-color: rgba(13, 13, 13, 0.85);
     border-bottom: 1px solid #2a2a2a;
   }
 
-  /* ===== HAMBURGER BUTTON (hidden on desktop) ===== */
+  /* ===== HAMBURGER BUTTON ===== */
   .hamburger {
-    display: none;          /* Hidden by default on larger screens */
+    display: none;
     background: none;
     border: none;
     cursor: pointer;
@@ -74,7 +79,6 @@ const { current = '' } = Astro.props;
     border-radius: 2px;
   }
 
-  /* Animated hamburger → X when open */
   .hamburger.open span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
   }
@@ -85,55 +89,42 @@ const { current = '' } = Astro.props;
     transform: rotate(-45deg) translate(5px, -5px);
   }
 
-  /* ===== NAVIGATION ===== */
+  /* ===== NAVIGATION WRAPPER ===== */
   .nav-wrapper {
     display: flex;
     align-items: center;
   }
 
-  /* Hide nav on mobile by default, show when open */
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* ===== MOBILE RESPONSIVE ===== */
+  /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
     header {
       padding: 1rem 1.5rem;
     }
 
     .hamburger {
-      display: flex;           /* Show hamburger on small screens */
+      display: flex;
     }
 
-    .nav-links {
-      display: none;           /* Hide nav initially */
-      flex-direction: column;
+    .nav-wrapper {
       position: absolute;
-      top: 100%;              /* Just below the header */
+      top: 100%;
       left: 0;
       right: 0;
       background: var(--header-bg, rgba(255,255,255,0.95));
       backdrop-filter: blur(8px);
       padding: 1.5rem;
-      gap: 1.5rem;
       border-top: 1px solid var(--border-color, #e2e8f0);
-      text-align: center;
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      display: none;
+      flex-direction: column;
+      align-items: center;
     }
 
-    /* When nav is open, show it */
-    .nav-links.open {
+    .nav-wrapper.open {
       display: flex;
     }
 
-    /* Dark mode adjustment */
-    :global(.theme-dark) .nav-links {
+    :global(.theme-dark) .nav-wrapper {
       background: var(--header-bg-dark, rgba(30, 41, 59, 0.95));
     }
   }
@@ -146,43 +137,39 @@ const { current = '' } = Astro.props;
 </style>
 
 <header id="main-header">
-  <!-- Logo -->
   <Logo />
-
-  <!-- Hamburger Button -->
+  
   <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation">
     <span></span>
     <span></span>
     <span></span>
   </button>
 
-  <!-- Navigation -->
-  <div class="nav-wrapper">
+  <div class="nav-wrapper" id="nav-wrapper">
     <Nav current={current} />
   </div>
 </header>
 
 <script>
-  // Toggle hamburger menu
+  // Hamburger toggle
   const hamburger = document.getElementById('hamburger-btn');
-  const navLinks = document.querySelector('.nav-links');
+  const navWrapper = document.getElementById('nav-wrapper');
 
-  if (hamburger && navLinks) {
+  if (hamburger && navWrapper) {
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('open');
-      navLinks.classList.toggle('open');
+      navWrapper.classList.toggle('open');
     });
 
-    // Close menu when a link is clicked (optional)
-    navLinks.querySelectorAll('a').forEach(link => {
+    navWrapper.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('open');
-        navLinks.classList.remove('open');
+        navWrapper.classList.remove('open');
       });
     });
   }
 
-  // Scroll effect for header background
+  // Scroll effect (adds .scrolled class)
   const header = document.getElementById('main-header');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {

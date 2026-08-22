@@ -1,4 +1,3 @@
-
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -10,13 +9,17 @@ const permalink = Astro.site ? Astro.site.href : "https://blueprintly.online";
 // 1. Fetch posts and sort by date (newest first)
 const allPosts = await getCollection('blog-posts');
 const recentPosts = allPosts
-  .sort((a, b) => new Date(b.data.publishDate || 0).getTime() - new Date(a.data.publishDate || 0).getTime())
+  .sort((a, b) => {
+    const dateA = a.data.publishDate ? new Date(a.data.publishDate).getTime() : 0;
+    const dateB = b.data.publishDate ? new Date(b.data.publishDate).getTime() : 0;
+    return dateB - dateA;
+  })
   .slice(0, 3);
 
 // 2. Helper function to extract content preview and image safely
 const processedPosts = recentPosts.map((post) => {
-  // Extract slug safely
-  const slug = (post.data as any).slug || post.id;
+  // Extract clean slug without file extensions
+  const cleanSlug = post.slug || post.id.replace(/\.[^/.]+$/, "");
 
   // Extract raw body or description text for preview
   const rawText = post.data.description || post.body || '';
@@ -39,7 +42,7 @@ const processedPosts = recentPosts.map((post) => {
 
   return {
     ...post,
-    slug,
+    slug: cleanSlug,
     previewText: truncatedText,
     image: firstImage,
   };
@@ -50,7 +53,7 @@ const processedPosts = recentPosts.map((post) => {
   <div class="home-container">
 
     <!-- ========================================= -->
-    <!-- 1. HERO (without email capture)           -->
+    <!-- 1. HERO                                   -->
     <!-- ========================================= -->
     <section class="hero">
       <span class="badge">✦ 2026 Blueprint Series</span>
@@ -63,14 +66,13 @@ const processedPosts = recentPosts.map((post) => {
         Fix your desk pain today with our in‑depth guides.
       </p>
 
-      <!-- No form – just a clear call‑to‑action to browse -->
       <div class="hero-cta">
         <a href="#latest-posts" class="btn btn-primary">Browse the Guides ↓</a>
       </div>
     </section>
 
     <!-- ========================================= -->
-    <!-- 2. SUB-NICHES (unchanged)                  -->
+    <!-- 2. SUB-NICHES                            -->
     <!-- ========================================= -->
     <section class="sub-niches">
       <h2>What's your workspace challenge?</h2>
@@ -128,7 +130,7 @@ const processedPosts = recentPosts.map((post) => {
     </section>
 
     <!-- ========================================= -->
-    <!-- 4. DISCLOSURE (theme‑aware)               -->
+    <!-- 4. DISCLOSURE                             -->
     <!-- ========================================= -->
     <div class="disclosure-banner">
       <p>

@@ -33,103 +33,87 @@ The key to a great small desk setup is thinking in three dimensions:
 
 ### 🖥️ The Monitor Dilemma: Wall Mount vs. Clamp Stand
 
-Your monitor's bulky plastic base is the #1 desk-space killer. Getting that screen up in the air is non-negotiable.
+Your monitor's bulky plastic base is the #1 desk-space killer. Getting that screen up in the air is non-negotiable, but you have two primary routes:
 
-#### Top Pick for Wall Mounting
+#### 1. Wall Mounting (The Gold Standard)
+* **Pros:** Frees up 100% of desktop and under-desk space; no clamp mechanism to hit your knees; clean, permanent look.
+* **Cons:** Requires drilling into your wall (not renter-friendly); fixed position relative to the wall.
+* **Best for:** Homeowners, renters with permission to drill, and thin/glass desks.
+* **Top Pick:** AVLT Single Monitor Arm Wall Mount or WALI TV Wall Mount (supports 13–32" screens up to 19.8–33 lbs).
 
-<div class="product-card">
-  <div class="product-image">
-    <img src="/assets/products/avlt-mount.jpg" alt="AVLT Single Wall Mount" />
-  </div>
-  <div class="product-details">
-    <span class="product-badge">Top Wall Mount Pick</span>
-    <h3>AVLT Single Monitor Wall Mount</h3>
-    <ul class="product-specs">
-      <li><strong>Weight Capacity:</strong> Up to 19.8 lbs</li>
-      <li><strong>Screen Sizes:</strong> 13" – 32"</li>
-      <li><strong>Feature:</strong> Full Motion Gas Spring Articulation</li>
-    </ul>
-    <div class="product-action">
-      <span class="price">~$35.00</span>
-      <a href="https://amazon.com/dp/EXAMPLE?tag=your-affiliate-id" target="_blank" rel="noopener noreferrer" class="buy-button">
-        View on Amazon ↗
-      </a>
-    </div>
-  </div>
-</div>
+#### 2. Clamp Stands / C-Clamps (The Renter Hero)
+* **Pros:** No drilling required; adjustable positioning; budget-friendly.
+* **Cons:** Clamp mechanism hangs 2–3 inches under your desk; may fit awkwardly on thick frames.
+* **Pro Tip:** Mount your monitor arm off-center—roughly 3–4 inches from the left or right corner. This places the mechanism out of your primary knee zone while allowing you to swivel the screen back to center.
 
-#### Top Pick for Vertical Dual Monitors
+> **The Spacer Hack:** If your desk has a thick metal lip or unusual frame, buy a dense rubber shim or hardwood block from a hardware store ($5). Place it between the upper jaw of the clamp and the underside of the desk to bridge the gap and distribute pressure evenly.
 
-<div class="product-card">
-  <div class="product-image">
-    <img src="/assets/products/huanuo-vertical.jpg" alt="HUANUO Vertical Dual Mount" />
-  </div>
-  <div class="product-details">
-    <span class="product-badge">Best Vertical Stacking Mount</span>
-    <h3>HUANUO Vertical Dual Monitor Stand</h3>
-    <ul class="product-specs">
-      <li><strong>Pole Height:</strong> 31.5 Inches</li>
-      <li><strong>Weight Capacity:</strong> 17.6 lbs per arm</li>
-      <li><strong>Clamp Range:</strong> Up to 3.14" Desk Thickness</li>
-    </ul>
-    <div class="product-action">
-      <span class="price">~$70.00</span>
-      <a href="https://amazon.com/dp/EXAMPLE?tag=your-affiliate-id" target="_blank" rel="noopener noreferrer" class="buy-button">
-        View on Amazon ↗
-      </a>
-    </div>
-  </div>
-</div>
+---
+
+### 📊 Quick Comparison: Monitor Mounts
+
+| Product | Type | Weight Capacity | Desk Thickness | Best For |
+| :--- | :--- | :--- | :--- | :--- |
+| **AVLT Single Wall Mount** | Wall | 19.8 lbs | N/A | Cleanest look, permanent install |
+| **WALI TV Wall Mount** | Wall | 33 lbs | N/A | Heavier monitors, max articulation |
+| **HUANUO Vertical Mount** | Clamp | 17.6 lbs/arm | Up to 3.14" | Stacking two monitors vertically |
+| **HUANUO FlowLift** | Clamp | 4.4–19.8 lbs/arm | 0.59"–3.54" | Dual C-clamp stability + full motion |
+
+---
+
+### 🪑 The Dual-Monitor Trap: Why Horizontal is a Sin
+
+If you're running two monitors on a small desk, placing them side-by-side spans 40 to 48 inches across—leaving zero room for a notepad, coffee mug, or external drive.
+
+**The Solution: Vertical Stacking**
+Place one monitor directly above the other. This uses vertical clearance instead of width, saving 15 to 20 inches of horizontal desk real estate.
+
+* **Mounting Setup:** Use a tall pole mount like the HUANUO Vertical Dual Monitor Mount (31.5" pole). It takes up only one clamp footprint and supports two screens up to 32" each.
+* **Ergonomic Rule:** Your primary monitor should be the bottom screen, with its top edge at or slightly below eye level. Tilt the top monitor 10°–15° downward to prevent neck strain.
+
+---
+
+### 💡 Reclaiming the "Blank Zones"
+
+* **Zone 1 (Above Your Monitors):** Install a floating shelf (e.g., HOOBRO 2-Tier Floating Shelves) 1–2 feet above your screen for routers, SSDs, or lamps.
+* **Zone 2 (The Side Gap):** Slide a narrow rolling cart (e.g., KINGRACK Slim Rolling Cart, 16.7" wide) between your desk and bed/wall for your PC tower, supplies, or extra drives.
+* **Zone 3 (The Wall Itself):** Mount a 12" x 12" pegboard kit beside your desk to hang noise-canceling headphones, cables, and pens.
 
 ---
 
 ### 💡 Lighting: Ditch the Bulky Desk Lamp
 
-<div class="product-card">
-  <div class="product-image">
-    <img src="/assets/products/quntis-bar.jpg" alt="Quntis Monitor Light Bar" />
-  </div>
-  <div class="product-details">
-    <span class="product-badge">Best Budget Light Bar</span>
-    <h3>Quntis Computer Monitor Light Bar</h3>
-    <ul class="product-specs">
-      <li><strong>Color Accuracy:</strong> Ra95 CRI</li>
-      <li><strong>Glare Control:</strong> Asymmetric Optical Design</li>
-      <li><strong>Control:</strong> Touch Control with Dimming</li>
-    </ul>
-    <div class="product-action">
-      <span class="price">$32.99</span>
-      <a href="https://amazon.com/dp/EXAMPLE?tag=your-affiliate-id" target="_blank" rel="noopener noreferrer" class="buy-button">
-        View on Amazon ↗
-      </a>
-    </div>
-  </div>
-</div>
+Standard lamps steal precious real estate and cause screen glare. Swap them for a **monitor light bar** that clips directly onto your screen:
+
+| Product | Price | CRI | Auto-Dimming | Best For |
+| :--- | :--- | :--- | :--- | :--- |
+| **Quntis Light Bar** | $32.99 | Ra95 | ❌ | Budget buyers needing high color accuracy |
+| **Quntis PRO+** | $69.99 | Ra95 | ✅ | Ultrawide monitors + auto-dimming |
+| **Xiaomi Mi** | $67.99 | Ra95 | ❌ | Minimalist design & wireless dial control |
+| **BenQ ScreenBar Halo 2** | $229.99 | Ra95 | ✅ | Professionals working 10+ hour days |
 
 ---
 
-### 🔌 Under-Desk Power & Cable Management
+### 🔌 Cut the Cords: Under-Desk Cable System
 
-<div class="product-card">
-  <div class="product-image">
-    <img src="/assets/products/acozvin-power.jpg" alt="ACOZVIN Desk Clamp Power Strip" />
-  </div>
-  <div class="product-details">
-    <span class="product-badge">Best Power Solution</span>
-    <h3>ACOZVIN Desk Clamp Power Strip</h3>
-    <ul class="product-specs">
-      <li><strong>Outlets:</strong> 9 AC Outlets + 8 USB Ports</li>
-      <li><strong>Fast Charging:</strong> Dual PD20W USB-C Ports</li>
-      <li><strong>Mounting:</strong> Edge Clamp (No Drilling)</li>
-    </ul>
-    <div class="product-action">
-      <span class="price">$25.64</span>
-      <a href="https://amazon.com/dp/EXAMPLE?tag=your-affiliate-id" target="_blank" rel="noopener noreferrer" class="buy-button">
-        View on Amazon ↗
-      </a>
-    </div>
-  </div>
-</div>
+1. **Mount a Power Strip:** Use a clamp-on power strip (e.g., ACOZVIN Desk Clamp Power Strip) or attach a tray under your desk.
+2. **Bundle Cables:** Group wires using a split sleeve loom (e.g., Alex Tech 25ft Wire Loom) to protect cords and keep them hidden.
+3. **Secure & Route:** Fasten bundles using reusable color-coded Velcro ties and run them up built-in channels on your monitor arm.
+
+---
+
+### 📊 Quick Reference: Small Desk Toolkit
+
+| Item | Recommended Product | Price | Key Feature |
+| :--- | :--- | :--- | :--- |
+| **Monitor Mount (Wall)** | AVLT Single Wall Mount | ~$35 | 19.8 lbs, 13–32" support |
+| **Monitor Mount (Clamp)** | VIVO STAND-V101BB | $59.99 | 26.4 lbs capacity |
+| **Vertical Stack Mount** | HUANUO Vertical Mount | ~$70 | 31.5" pole, dual 17.6 lbs/arm |
+| **Light Bar (Budget)** | Quntis Monitor Light Bar | $32.99 | Ra95 CRI, zero screen glare |
+| **Light Bar (Premium)** | BenQ ScreenBar Halo 2 | $229.99 | Backlighting + auto-dimming |
+| **Cable Tray** | 25" Cable Management Tray | $20.39 | No-drill clamp, holds 15 lbs |
+| **Power Strip** | ACOZVIN Desk Clamp | $25.64 | 9 AC outlets + 8 USB ports |
+| **Wireless Combo** | seenda 3-Device Combo | ~$30 | Compact multi-device switching |
 
 ---
 

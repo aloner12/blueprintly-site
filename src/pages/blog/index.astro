@@ -19,7 +19,8 @@ const sortedPosts = allPosts.sort((a, b) => {
 
 // 2. Format posts with previews and images
 const processedPosts = sortedPosts.map((post) => {
-  const slug = (post.data as any).slug || post.id;
+  // Extract clean slug without .md file extension
+  const cleanSlug = post.slug || post.id.replace(/\.[^/.]+$/, "");
 
   const rawText = post.data.description || post.body || '';
   const cleanText = rawText.replace(/[#*`_~]/g, '').trim();
@@ -39,7 +40,7 @@ const processedPosts = sortedPosts.map((post) => {
 
   return {
     ...post,
-    slug,
+    slug: cleanSlug,
     previewText: truncatedText,
     image: firstImage,
   };
